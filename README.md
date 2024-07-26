@@ -1,5 +1,20 @@
 # ticket_296259
 
+## Solution
+
+I predict there is something wrong with the input files.
+These could be of invalid type or incorrectly called.
+
+- Could you share the input files?
+
+As I assume the data is private, I'll ask:
+
+- Could you share the command and scripts you used to call vatrix for the testing data?
+- Could you share the command and scripts you used to call vatrix for the real data?
+
+Besides that, I need to know
+
+- [the amount of things in each file] 
 
 ## Problem
 
@@ -20,3 +35,24 @@
 ## Notes
 
 I assume this is about the Rust program called vartrix at [https://github.com/10XGenomics/vartrix](https://github.com/10XGenomics/vartrix).
+
+A GitHub seach on `Failed to seek to offset`:
+
+![](github_search.png)
+
+ * [UNRESOLVED] [https://github.com/mflamand/Bullseye/issues/2#issuecomment-1067969449](https://github.com/mflamand/Bullseye/issues/2#issuecomment-1067969449)
+ * [UNRESOLVED] [https://github.com/GMOD/jbrowse-components/issues/1990#issuecomment-844406099](https://github.com/GMOD/jbrowse-components/issues/1990#issuecomment-844406099)
+
+I feel the problem is in [https://github.com/samtools/htslib](https://github.com/samtools/htslib), due to this PR:
+
+ * [https://github.com/samtools/htslib/pull/1504](https://github.com/samtools/htslib/pull/1504)
+
+Lines of code are at:
+
+ * [https://github.com/samtools/htslib/blob/master/hts.c#L4182](https://github.com/samtools/htslib/blob/master/hts.c#L4182)
+ * [https://github.com/samtools/htslib/blob/master/hts.c#L4203](https://github.com/samtools/htslib/blob/master/hts.c#L4203)
+
+Both work on a `BGZF` pointer, a structure 
+defined at [https://github.com/samtools/htslib/blob/develop/htslib/bgzf.h#L68](https://github.com/samtools/htslib/blob/develop/htslib/bgzf.h#L68).
+
+As the user can get to work testing files, I feel it is most likely that the user's input files are in an invalid format.
