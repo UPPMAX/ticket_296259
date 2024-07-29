@@ -14,7 +14,8 @@ As I assume the data is private, I'll ask:
 
 Besides that, I need to know
 
-- [the amount of things in each file] 
+- What happens if you delete the analysis files (keeping the data!) 
+  and start from scratch again? It seems like things are out of sync
 
 ## Problem
 
