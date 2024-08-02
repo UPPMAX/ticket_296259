@@ -1,23 +1,16 @@
 # ticket_296259
 
-## Solution
+### Solution
 
-I predict there is something wrong with the input files.
-These could be of invalid type or incorrectly called.
+I predict there is something wrong with the bam input file.
+The user thinks so to ([see communication of 2024-08-02](#2024-08-02)).
+The bam input file cannot be shared.
 
-- Could you share the input files?
+The user tried to delete the analysis files
+and started the analysis from scratch again,
+but I am unsure if this was correct ([see communication of 2024-08-02](#2024-08-02))
 
-As I assume the data is private, I'll ask:
-
-- Could you share the command and scripts you used to call vatrix for the testing data?
-- Could you share the command and scripts you used to call vatrix for the real data?
-
-Besides that, I need to know
-
-- What happens if you delete the analysis files (keeping the data!) 
-  and start from scratch again? It seems like things are out of sync
-
-## Problem
+### Problem
 
 > I am trying to run vartrix in Bianca.
 > The program seems to work fine when I try the test run (files in $VARTRIX_TEST) but crashes when I use my input files.
@@ -57,3 +50,39 @@ Both work on a `BGZF` pointer, a structure
 defined at [https://github.com/samtools/htslib/blob/develop/htslib/bgzf.h#L68](https://github.com/samtools/htslib/blob/develop/htslib/bgzf.h#L68).
 
 As the user can get to work testing files, I feel it is most likely that the user's input files are in an invalid format.
+
+I contacted the VarTrix maintainers to help me and the user diagnose the faulty file at [this Issue](https://github.com/10XGenomics/vartrix/issues/124).
+
+## Communication
+
+
+
+### 2024-08-02
+
+From the user:
+
+> The command I used to run a test in Vartrix:
+
+```console
+$ module load bioinfo-tools
+$ module load vartrix/1.1.22
+$ ls -ltr $VARTRIX_TEST/*
+$ vartrix --bam $VARTRIX_TEST/test_dna.bam \
+  --cell-barcodes $VARTRIX_TEST/dna_barcodes.tsv \
+  --fasta $VARTRIX_TEST/test_dna.fa \
+  --vcf $VARTRIX_TEST/test_dna.vcf
+```
+
+> Trying to remove all analysis files:
+> there are none created, I checked with '''ls -altr''' and I see nothing
+> 
+> Input files:
+> I agree in that it is, most likely, my input files.
+> My input bams have been tinkered with, because my bam files are output coming from RSEM and they are missing the CB tag needed by Vartrix (as Vartrix takes bam files with CellRanger format)
+> I used java/jvarkit to add the CB tag to my RSEM bams
+> I also modified the vcf file to tailor it to what we need, but when I compare it to the test vcf file they seem to have the same format
+
+> Sharing my inputs:
+> I'm not sure I can share my bam as it is sensitive information, but I have it in Bianca, so maybe you can access that directory?
+> For the remaining files I could send you a link to a tar in OneDrive, would that work?
+```
