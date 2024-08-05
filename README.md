@@ -7,7 +7,8 @@ Discuss:
 
 - [x] Goal: how to be able to fix the problem, maybe the VarTrix developers are better to ask
 
-It seems fixable :-)
+It seems fixable: we concluded that the user's script converted a BAM file
+to a text file. I can fix that script :-)
 
 - [x] Validate BAM file
 
@@ -23,7 +24,7 @@ Instead, it was a text file in the same format as `samtools view` gives.
 
 - [/] What is the history of the BAM file? Goal: reproduce problem on public BAM file
 
-The user will send me here script
+The user will send me her script
 
 - [x] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
 
