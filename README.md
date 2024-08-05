@@ -3,22 +3,8 @@
 
 Discuss:
 
-- [ ] This user command seems suspicious:
-
-```
-$VARTRIX_TEST/test_dna.bam
-```
-
-on Rackham this points to a shared file:
-
-```
-richel@rackham3 ~]$ echo $VARTRIX_TEST/test_dna.bam
-/sw/bioinfo/vartrix/1.1.22/rackham/test/test_dna.bam
-```
-
-Ask for `echo $VARTRIX_TEST/test_dna.bam`
-
-
+- [ ] Goal: how to be able to fix the problem,
+      maybe the VarTrix developers are better to ask
 - [ ] Validate BAM file
 
 ```bash
