@@ -16,6 +16,7 @@ java -jar $PICARD ValidateSamFile --INPUT user_filename.bam
 
 - [ ] What is the history of the BAM file? Goal: reproduce problem on public BAM file
 - [ ] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
+- [ ] Decide upon plan
 
 ### Solution
 
