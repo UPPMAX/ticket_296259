@@ -1,14 +1,55 @@
 # ticket_296259
 
+
+Discuss:
+
+- [ ] This user command seems suspicious:
+
+```
+$VARTRIX_TEST/test_dna.bam
+```
+
+on Rackham this points to a shared file:
+
+```
+richel@rackham3 ~]$ echo $VARTRIX_TEST/test_dna.bam
+/sw/bioinfo/vartrix/1.1.22/rackham/test/test_dna.bam
+```
+
+Ask for `echo $VARTRIX_TEST/test_dna.bam`
+
+
+- [ ] Validate BAM file
+
+```bash
+module load bioinfo-tools
+module load vartrix/1.1.22
+module load picard/3.1.1
+java -jar $PICARD ValidateSamFile --INPUT user_filename.bam
+```
+
+- [ ] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
+
 ### Solution
 
 I predict there is something wrong with the bam input file.
 The user thinks so to ([see communication of 2024-08-02](#2024-08-02)).
 The bam input file cannot be shared.
 
+However, it can be validated (code from [the UPPMAX documentation on Picard](https://docs.uppmax.uu.se/software/picard/)):
+
+```bash
+module load bioinfo-tools
+module load vartrix/1.1.22
+module load picard/3.1.1
+java -jar $PICARD ValidateSamFile --INPUT $VARTRIX_TEST/test_dna.bam
+```
+
 The user tried to delete the analysis files
 and started the analysis from scratch again,
 but I am unsure if this was correct ([see communication of 2024-08-02](#2024-08-02))
+
+- [ ] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
 
 ### Problem
 
