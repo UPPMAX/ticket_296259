@@ -1,11 +1,15 @@
 # ticket_296259
 
 
+## Meeting Monday 2024-08-05 10:00
+
 Discuss:
 
-- [ ] Goal: how to be able to fix the problem,
-      maybe the VarTrix developers are better to ask
-- [ ] Validate BAM file
+- [x] Goal: how to be able to fix the problem, maybe the VarTrix developers are better to ask
+
+It seems fixable :-)
+
+- [x] Validate BAM file
 
 ```bash
 module load bioinfo-tools
@@ -14,9 +18,22 @@ module load picard/3.1.1
 java -jar $PICARD ValidateSamFile --INPUT user_filename.bam
 ```
 
-- [ ] What is the history of the BAM file? Goal: reproduce problem on public BAM file
-- [ ] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
-- [ ] Decide upon plan
+We found out the BAM file was not a binary file at all!
+Instead, it was a text file in the same format as `samtools view` gives.
+
+- [/] What is the history of the BAM file? Goal: reproduce problem on public BAM file
+
+The user will send me here script
+
+- [x] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
+
+Not needed.
+
+- [x] Decide upon plan
+
+    - User sends script and subsetted BAM file before 14:00
+    - Richel works on the fix
+    - Next meeting: Tuesday Aug 6th 14:00
 
 ### Solution
 
