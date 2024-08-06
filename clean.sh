@@ -11,4 +11,7 @@ rm *.out
 rm 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
 rm SS2_19_037-H13_chr2.sam
 rm SS2_19_037-H13_chr2_bam.bam.bai
+rm SS2_19_037-H13_chr2_actuall_a.bam
+rm SS2_19_037-H13_chr2.bam
 # MUST STAY: SS2_19_037-H13_chr2.bam
+git checkout .
