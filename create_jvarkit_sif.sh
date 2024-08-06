@@ -4,4 +4,4 @@
 #
 # Documentation at https://docs.uppmax.uu.se/software/jvarkit
 #
-sudo singularity build jvarkit.sif docker:lindenb/jvarkit
+sudo singularity build jvarkit.sif docker:lindenb/jvarkit:1b2aedf24
