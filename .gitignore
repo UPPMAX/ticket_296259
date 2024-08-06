@@ -12,3 +12,4 @@ Cargo.lock
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+GRCh38.p13.genome.fa.gz
