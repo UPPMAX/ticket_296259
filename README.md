@@ -8,6 +8,36 @@ Abbreviation | In full
 
 ## 2024-08-06
 
+### Meeting 16:00
+
+- [ ] Discuss maybe solution: unsure of more of headers needs to change:
+
+![](sed_difference.png)
+
+```bash
+# Add CB:s in the header
+sed 's/SN:ERCC-/CB:SN:ERCC-/g' SS2_19_037-H13-CB_chr2.sam > SS2_19_037-H13-CB_chr2_with_cbs.sam
+# Convert to BAM
+samtools view -S -b SS2_19_037-H13-CB_chr2_with_cbs.sam > SS2_19_037-H13-CB_chr2_with_cbs.bam
+```
+
+- [ ] Documented [jvarkit](https://docs.uppmax.uu.se/software/jvarkit/) 
+      and [how to put it in a Singularity container](https://docs.uppmax.uu.se/software/create_singularity_container_from_dockerhub/):
+      maybe user is interested?
+
+In [run.sh](run.sh), the line that would change would be:
+
+```bash
+./jvarkit.sif java -jar /opt/jvarkit/dist/jvarkit.jar samjdk -e 'String c=record.getReadName(); int h=0; int s=21; record.setAttribute(\"CB\",c.substring(h,s));return record;' ${LINE}  > ${outdir1}${cell}-CB_chr2.sam
+```
+
+(note the escaped double-quotes)
+
+- [ ] Requested a feature request to samtools to detect when a SAM has a BAM filename extension
+      at [https://github.com/samtools/samtools/issues/2094](https://github.com/samtools/samtools/issues/2094)
+
+### Notes
+
 Bash script from user [run.sh](run.sh).
 
 The problem is in an early line:
