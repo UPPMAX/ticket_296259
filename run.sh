@@ -57,25 +57,29 @@ samtools index SS2_19_037-H13_chr2_bam.bam
 ################# Added by Richel, start
 # Reproduce error
 error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam)
-echo "Picard error code is ${error_code}"
+echo "----------------------------------------------"
+echo "Before fix: Picard error code is ${error_code}"
 if [[ ${error_code} -ne 0 ]]; then
   echo "CONFIRM: Picard error code is ${error_code}"
   echo "Richel will fix it now"
 fi
+echo "----------------------------------------------"
 
 # Fix
 mv SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
 samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
 
 error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam)
-echo "Picard error code is ${error_code}"
+echo "----------------------------------------------"
+echo "After fix: Picard error code is ${error_code}"
 if [[ ${error_code} -ne 0 ]]; then
   echo "ERROR: Picard error code is ${error_code}"
   echo "Richel has not fixed it yet"
   exit 42
 fi
-
 echo "DONE!"
+echo "----------------------------------------------"
+
 exit 0
 ################# Added by Richel, end
 
