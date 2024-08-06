@@ -33,7 +33,7 @@ cell="SS2_19_037-H13"
 if [ -f ${tooldir}jvarkit.jar ]; then
     java -jar ${tooldir}jvarkit.jar samjdk -e 'String c=record.getReadName(); int h=0; int s=21; record.setAttribute("CB",c.substring(h,s));return record;' ${LINE}  > ${outdir1}${cell}-CB_chr2.sam
 else
-    if [ -f jvarkit.sif ]; then
+    if [ ! -f jvarkit.sif ]; then
         echo "ERROR: 'jvarkit.sif' not found. See https://docs.uppmax.uu.se/software/jvarkit how to create it"
         exit 42
     fi
