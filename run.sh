@@ -13,7 +13,7 @@ module load picard
 
 
 # Added by Richel
-if [[ 1 == 2]]; then
+if [[ 1 == 2 ]]; then
 
     # Commented out by Richel
     # <<'_SKIP_'
@@ -68,6 +68,8 @@ samtools index SS2_19_037-H13_chr2_bam.bam
 ################# Added by Richel, start
 echo "----------------------------------------------"
 echo "Fix problem here
+# The file, SS2_19_037-H13-CB_chr2.sam, is already ready:
+head SS2_19_037-H13-CB_chr2.sam
 echo "----------------------------------------------"
 ################# Added by Richel, end
 
