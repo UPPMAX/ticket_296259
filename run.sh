@@ -102,6 +102,8 @@ echo "----------------------------------------------"
 echo "Fix problem here"
 # The file, SS2_19_037-H13-CB_chr2.sam, is already ready:
 head SS2_19_037-H13-CB_chr2.sam
+
+
 echo "----------------------------------------------"
 ################# Added by Richel, end
 
