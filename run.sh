@@ -29,7 +29,17 @@ tooldir="/home/mararc/bin/jvarkit/dist/"
 LINE="./SS2_19_037-H13_chr2.bam"
 outdir1="./"
 cell="SS2_19_037-H13"
-java -jar ${tooldir}jvarkit.jar samjdk -e 'String c=record.getReadName(); int h=0; int s=21; record.setAttribute("CB",c.substring(h,s));return record;' ${LINE}  > ${outdir1}${cell}-CB_chr2.sam
+
+if [ -f ${tooldir}jvarkit.jar ]; then
+    java -jar ${tooldir}jvarkit.jar samjdk -e 'String c=record.getReadName(); int h=0; int s=21; record.setAttribute("CB",c.substring(h,s));return record;' ${LINE}  > ${outdir1}${cell}-CB_chr2.sam
+else
+    if [ -f jvarkit.sif ]; then
+        echo "ERROR: 'jvarkit.sif' not found. See https://docs.uppmax.uu.se/software/jvarkit how to create it"
+        exit 42
+    fi
+    ./jvarkit.sif  java -jar /opt/jvarkit/dist/jvarkit.jar samjdk -e 'String c=record.getReadName(); int h=0; int s=21; record.setAttribute("CB",c.substring(h,s));return record;' ${LINE}  > ${outdir1}${cell}-CB_chr2.sam
+  
+fi
 
 # convert back from sam to bam -- I met with Richel @UPPMAX-SUPPORT and he pointed out the file jvarkit spits out is a text, he's right. I actually get a sam format and not bam
 # Therefore, I will now convert back 
