@@ -10,7 +10,7 @@ Abbreviation | In full
 
 ### Meeting 16:00
 
-- [ ] Discuss maybe solution: unsure of more of headers needs to change:
+- [x] Discuss maybe solution: unsure of more of headers needs to change:
 
 ![](sed_difference.png)
 
@@ -21,7 +21,9 @@ sed 's/SN:ERCC-/CB:SN:ERCC-/g' SS2_19_037-H13-CB_chr2.sam > SS2_19_037-H13-CB_ch
 samtools view -S -b SS2_19_037-H13-CB_chr2_with_cbs.sam > SS2_19_037-H13-CB_chr2_with_cbs.bam
 ```
 
-- [ ] Documented [jvarkit](https://docs.uppmax.uu.se/software/jvarkit/) 
+This was indeed the solution. The user will add this to her scripts herself.
+
+- [x] Documented [jvarkit](https://docs.uppmax.uu.se/software/jvarkit/) 
       and [how to put it in a Singularity container](https://docs.uppmax.uu.se/software/create_singularity_container_from_dockerhub/):
       maybe user is interested?
 
@@ -33,8 +35,12 @@ In [run.sh](run.sh), the line that would change would be:
 
 (note the escaped double-quotes)
 
-- [ ] Requested a feature request to samtools to detect when a SAM has a BAM filename extension
+User thinks this is useful.
+
+- [x] Requested a feature request to samtools to detect when a SAM has a BAM filename extension
       at [https://github.com/samtools/samtools/issues/2094](https://github.com/samtools/samtools/issues/2094)
+
+User seemed happy to have contributed indirectly to samtools
 
 ### Notes
 
