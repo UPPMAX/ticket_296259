@@ -1,7 +1,12 @@
 # ticket_296259
 
+Abbreviation | In full
+-------------|---------------------
+`BAM`        | Binary Alignment Map
+`CIGAR`      | Compact Idiosyncratic Gapped Alignment Report
+`SAM`        | Sequence Alignment Map
 
-## 
+## 2024-08-06
 
 Bash script from user [run.sh](run.sh).
 
@@ -75,8 +80,9 @@ SS2_19_037-H13_chr2.bam has good EOF block.
 - [ ] Confirmthat `java -jar $PICARD ValidateSamFile --INPUT java -jar $PICARD ValidateSamFile --INPUT user_filename.bam` 
       indicates a problem
 
+## 2024-08-05
 
-## Meeting Monday 2024-08-05 10:00
+### Meeting Monday 2024-08-05 10:00
 
 Discuss:
 
@@ -132,6 +138,8 @@ but I am unsure if this was correct ([see communication of 2024-08-02](#2024-08-
 
 - [ ] I've creates an Issue at VarTrix: [Help find problematic file with error 'Failed to seek to offset'](https://github.com/10XGenomics/vartrix/issues/124)
 
+## 2024-08-02
+
 ### Problem
 
 > I am trying to run vartrix in Bianca.
@@ -148,7 +156,7 @@ but I am unsure if this was correct ([see communication of 2024-08-02](#2024-08-
 
 ![](screenshot_2024_07_09_18_43.png)
 
-## Notes
+### Notes
 
 I assume this is about the Rust program called vartrix at [https://github.com/10XGenomics/vartrix](https://github.com/10XGenomics/vartrix).
 
@@ -175,11 +183,7 @@ As the user can get to work testing files, I feel it is most likely that the use
 
 I contacted the VarTrix maintainers to help me and the user diagnose the faulty file at [this Issue](https://github.com/10XGenomics/vartrix/issues/124).
 
-## Communication
-
-
-
-### 2024-08-02
+### Communication
 
 From the user:
 
@@ -208,3 +212,5 @@ $ vartrix --bam $VARTRIX_TEST/test_dna.bam \
 > I'm not sure I can share my bam as it is sensitive information, but I have it in Bianca, so maybe you can access that directory?
 > For the remaining files I could send you a link to a tar in OneDrive, would that work?
 ```
+
+
