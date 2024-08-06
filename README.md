@@ -199,6 +199,9 @@ samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
 After a lot of trying: there is no need to fix the script: the user
 already did so! Cleaning up...
 
+I now have the SAM file, [SS2_19_037-H13-CB_chr2.sam](SS2_19_037-H13-CB_chr2.sam)
+that needs to be modified...
+
 ## 2024-08-05
 
 ### Meeting Monday 2024-08-05 10:00
