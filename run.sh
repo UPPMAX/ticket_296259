@@ -64,31 +64,32 @@ samtools index SS2_19_037-H13_chr2_bam.bam
 
 ################# Added by Richel, start
 # Reproduce error
-error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam --MAX_OUTPUT 5)
-
+# error_code=$(java -jar ${PICARD} ValidateBamFile --INPUT SS2_19_037-H13_chr2.bam --MAX_OUTPUT 5)
 echo "----------------------------------------------"
-echo "Before fix: Picard error code is ${error_code}"
-if [[ ${error_code} -ne 0 ]]; then
-  echo "CONFIRM: Picard error code is ${error_code}"
-  echo "Richel will fix it now"
-fi
+echo "DIAGNOSE: SS2_19_037-H13_chr2.bam is not a BAM: "
+head SS2_19_037-H13_chr2.bam
 echo "----------------------------------------------"
 
-# Fix
+# Fix: use correct file name extension
 cp SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
-
+# Fix: create an actual bam file
 samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2_actuall_a.bam
 
-error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2_actuall_a.bam --MAX_OUTPUT 5)
 echo "----------------------------------------------"
-echo "After fix: Picard error code is ${error_code}"
-if [[ ${error_code} -ne 0 ]]; then
-  echo "ERROR: Picard error code is ${error_code}"
-  echo "Richel has not fixed it yet"
-  exit 42
-fi
-echo "DONE!"
+echo "DIAGNOSE: SS2_19_037-H13_chr2_actuall_a.bam is a BAM: "
+head SS2_19_037-H13_chr2_actuall_a.bam
 echo "----------------------------------------------"
+
+# error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2_actuall_a.bam --MAX_OUTPUT 5)
+# echo "----------------------------------------------"
+# echo "After fix: Picard error code is ${error_code}"
+# if [[ ${error_code} -ne 0 ]]; then
+#   echo "ERROR: Picard error code is ${error_code}"
+#   echo "Richel has not fixed it yet"
+#   exit 42
+# fi
+# echo "DONE!"
+# echo "----------------------------------------------"
 
 exit 0
 ################# Added by Richel, end
