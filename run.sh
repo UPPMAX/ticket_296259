@@ -12,7 +12,8 @@ module load picard
 # Added by Richel
 if [ 1 == 2]; then
 
-    <<'_SKIP_'
+    # Commented out by Richel
+    # <<'_SKIP_'
 
     # Original bam
     cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam ./H13/SS2_19_037-H13.genome.sorted-original.bam
@@ -34,8 +35,7 @@ if [ 1 == 2]; then
     rm 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa.fai
 
     # Commented out by Richel
-    _SKIP_
-
+    # _SKIP_
 fi
 
 # Add missing tag
