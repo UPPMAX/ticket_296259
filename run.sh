@@ -75,12 +75,11 @@ fi
 echo "----------------------------------------------"
 
 # Fix
-mv SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
-   SS2_19_037-H13_chr2.bam
+cp SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
 
-samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
+samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2_actuall_a.bam
 
-error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam --MAX_OUTPUT 5)
+error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2_actuall_a.bam --MAX_OUTPUT 5)
 echo "----------------------------------------------"
 echo "After fix: Picard error code is ${error_code}"
 if [[ ${error_code} -ne 0 ]]; then
