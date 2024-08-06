@@ -18,3 +18,5 @@ log
 SS2_19_037-H13-CB_chr2.sam
 SS2_19_037-H13_chr2_bam.bam
 *.sif
+SS2_19_037-H13_chr2_bam.bam.bai
+sample.bam
