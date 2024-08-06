@@ -55,9 +55,8 @@ samtools view -bS ./SS2_19_037-H13-CB_chr2.sam > ./SS2_19_037-H13_chr2_bam.bam
 samtools index SS2_19_037-H13_chr2_bam.bam
 
 # Added by Richel
-module load picard
 error_code = $(java -jar $PICARD ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam)
-if [ $error_code != 0 ]; then
+if [ $error_code -ne 0 ]; then
   echo "ERROR: Picard error code is ${error_code}"
   exit $error_code
 fi
