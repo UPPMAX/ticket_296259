@@ -5,6 +5,10 @@ module load samtools
 module load vartrix
 module load java/OpenJDK_17+35
 
+
+
+
+
 <<'_SKIP_'
 # Original bam
 cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam ./H13/SS2_19_037-H13.genome.sorted-original.bam
@@ -18,6 +22,15 @@ samtools view -b ${bamO} chr2 > SS2_19_037-H13_chr2.bam
 
 ## fasta reference
 fastafile="/castor/project/proj/maria.d/8_EXPRESSION.D/09.0_vartrix/data-d/ref_fasta-d/00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa"
+
+if [ ! -f ${fastafile} ]
+  fastafile="GRCh38.p13.genome.fa"
+fi
+
+if [ ! -f ${fastafile} ]
+  echo "ERROR: 'fastafile' not found at ${fastafile}"
+fi
+
 cp ${fastafile} .
 samtools faidx 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa chr2 >  ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
 samtools faidx ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
@@ -58,3 +71,5 @@ LINE="./"
 cell="SS2_19_037-H13"
 vartrix --vcf ${vcffile} --bam ${LINE}${cell}_chr2_bam.bam --fasta ${fastafile} --cell-barcodes ${LINE}barcodes --out-matrix ./out_mat --out-variants ./out_var &> log
 
+
+samtools view -S -b sample.sam > sample.bam

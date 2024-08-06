@@ -146,6 +146,8 @@ Works:
         14  /** user's code ends here */
         15     }
         16  }
+[richel@rackham1 ticket_296259]$ cat log 
+11:08:41 [ERROR] Input file ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa does not exist
 [richel@rackham1 ticket_296259]$ 
 ```
 
@@ -161,7 +163,7 @@ Works:
 
 `samtools` determines the type of file from the input file, not from its filename
 
-- [x] Confirm that `java -jar $PICARD ValidateSamFile --INPUT java -jar $PICARD ValidateSamFile --INPUT user_filename.bam` 
+- [x] Confirm that `java -jar $PICARD ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam` 
       indicates a problem
 
 ```bash
