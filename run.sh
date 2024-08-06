@@ -10,8 +10,9 @@ module load picard
 
 
 
+# Commented out by Richel
+# <<'_SKIP_'
 
-<<'_SKIP_'
 # Original bam
 cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam ./H13/SS2_19_037-H13.genome.sorted-original.bam
 cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam.bai .H13/SS2_19_037-H13.genome.sorted-original.bam
@@ -28,7 +29,9 @@ cp ${fastafile} .
 samtools faidx 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa chr2 >  ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
 samtools faidx ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
 rm 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa.fai
-_SKIP_
+
+# Commented out by Richel
+# _SKIP_
 
 # Add missing tag
 tooldir="/home/mararc/bin/jvarkit/dist/"
@@ -56,7 +59,8 @@ samtools index SS2_19_037-H13_chr2_bam.bam
 
 ################# Added by Richel, start
 # Reproduce error
-error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam)
+error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam --MAX_OUTPUT 5)
+
 echo "----------------------------------------------"
 echo "Before fix: Picard error code is ${error_code}"
 if [[ ${error_code} -ne 0 ]]; then
@@ -69,7 +73,7 @@ echo "----------------------------------------------"
 mv SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
 samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
 
-error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam)
+error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam --MAX_OUTPUT 5)
 echo "----------------------------------------------"
 echo "After fix: Picard error code is ${error_code}"
 if [[ ${error_code} -ne 0 ]]; then
