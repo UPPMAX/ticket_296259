@@ -196,6 +196,9 @@ mv SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
 samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
 ```
 
+After a lot of trying: there is no need to fix the script: the user
+already did so! Cleaning up...
+
 ## 2024-08-05
 
 ### Meeting Monday 2024-08-05 10:00
