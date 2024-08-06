@@ -43,6 +43,21 @@ samtools view SS2_19_037-H13_chr2.sam --bam --output SS2_19_037-H13_chr2.bam
 
 - [ ] Test hypothesis
 
+User text on how to get a FASTA:
+
+> Fasta (too large to send as attachment) downloaded from https://www.gencodegenes.org/human/release_37.html (Fasta files > genome sequence)
+
+Indeed, the FASTA file can be downloaded from [https://www.gencodegenes.org/human/release_37.html](https://www.gencodegenes.org/human/release_37.html),
+which links to [https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_37/GRCh38.p13.genome.fa.gz](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_37/GRCh38.p13.genome.fa.gz).
+I put that in a script [get_fasta.sh](get_fasta.sh).
+
+- [ ] Run use script, reproduce problem
+- [ ] Confirm that `samtools quickcheck` on the `SS2_19_037-H13_chr2.bam` created by the original script
+      indicates a problem
+- [ ] Confirmthat `java -jar $PICARD ValidateSamFile --INPUT java -jar $PICARD ValidateSamFile --INPUT user_filename.bam` 
+      indicates a problem
+
+
 ## Meeting Monday 2024-08-05 10:00
 
 Discuss:
