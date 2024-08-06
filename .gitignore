@@ -14,3 +14,6 @@ Cargo.lock
 *.pdb
 GRCh38.p13.genome.fa.gz
 GRCh38.p13.genome.fa
+log
+SS2_19_037-H13-CB_chr2.sam
+SS2_19_037-H13_chr2_bam.bam

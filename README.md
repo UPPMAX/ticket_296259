@@ -51,7 +51,25 @@ Indeed, the FASTA file can be downloaded from [https://www.gencodegenes.org/huma
 which links to [https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_37/GRCh38.p13.genome.fa.gz](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_37/GRCh38.p13.genome.fa.gz).
 I put that in a script [get_fasta.sh](get_fasta.sh).
 
+- [ ] Verify `SS2_19_037-H13_chr2.bam` is a valid BAM file
+    - `cat SS2_19_037-H13_chr2.bam` indeed shows a binary file
+    - `samtools quickcheck SS2_19_037-H13_chr2.bam` gives no error
+    - `samtools quickcheck -vvv SS2_19_037-H13_chr2.bam` gives no error and some good output:
+
+```
+richel@richel-N141CU:~/GitHubs/ticket_296259$ samtools quickcheck -vvv SS2_19_037-H13_chr2.bam
+verbosity set to 3
+checking SS2_19_037-H13_chr2.bam
+opened SS2_19_037-H13_chr2.bam
+SS2_19_037-H13_chr2.bam is sequence data
+SS2_19_037-H13_chr2.bam has 116 targets in header.
+SS2_19_037-H13_chr2.bam has good EOF block.
+```
+
 - [ ] Run use script, reproduce problem
+
+
+
 - [ ] Confirm that `samtools quickcheck` on the `SS2_19_037-H13_chr2.bam` created by the original script
       indicates a problem
 - [ ] Confirmthat `java -jar $PICARD ValidateSamFile --INPUT java -jar $PICARD ValidateSamFile --INPUT user_filename.bam` 
