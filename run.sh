@@ -1,4 +1,7 @@
 #!/bin/bash -l
+#SBATCH -A staff 
+#SBATCH -t 1:00:00 
+#SBATCH -p devcore
 
 module load bioinfo-tools
 module load samtools
