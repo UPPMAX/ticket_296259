@@ -1,6 +1,48 @@
 # ticket_296259
 
 
+## 
+
+Bash script from user [run.sh](run.sh).
+
+The problem is in an early line:
+
+```bash
+samtools view -b ${bamO} chr2 > SS2_19_037-H13_chr2.bam
+```
+
+This is a problem as a samtools view is not in the same format as a BAM
+file. Using this line instead brings us closer to the truth:
+
+```bash
+samtools view -b ${bamO} chr2 > SS2_19_037-H13_chr2.sam
+```
+
+This is because a SAM file is a plaintext format that samtools
+renders to. However, the user does use the samtools `-b` flag,
+which, according to [the documentation](https://github.com/samtools/samtools/blob/master/doc/samtools-view.1)
+states `-b, --bam Output in the BAM format`
+
+I hypothesize that `-b` is ignored when an output file is not 
+specified (with the `-o` flag),
+which can be tested by seeing if this would indeed create a BAM file:
+
+```bash
+samtools view --bam ${bamO} chr2 --output SS2_19_037-H13_chr2.bam
+```
+
+- [ ] Test hypothesis
+
+This is, however, not the solution. Instead, I predict this will work:
+
+```bash
+samtools view ${bamO} chr2 > SS2_19_037-H13_chr2.sam
+# Work on the SAM file
+samtools view SS2_19_037-H13_chr2.sam --bam --output SS2_19_037-H13_chr2.bam
+```
+
+- [ ] Test hypothesis
+
 ## Meeting Monday 2024-08-05 10:00
 
 Discuss:
