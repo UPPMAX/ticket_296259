@@ -189,6 +189,13 @@ WARNING::RECORD_MISSING_READ_GROUP:Read name Run0484_ACDWKAANXX_L4_R1_T1209_C132
 [...]
 ```
 
+Fix problem in script:
+
+```
+mv SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
+samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
+```
+
 ## 2024-08-05
 
 ### Meeting Monday 2024-08-05 10:00
