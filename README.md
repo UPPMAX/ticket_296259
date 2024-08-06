@@ -202,6 +202,68 @@ already did so! Cleaning up...
 I now have the SAM file, [SS2_19_037-H13-CB_chr2.sam](SS2_19_037-H13-CB_chr2.sam)
 that needs to be modified...
 
+```
+[richel@rackham1 ticket_296259]$ head SS2_19_037-H13-CB_chr2.sam
+@HD	VN:1.6	SO:coordinate
+@SQ	SN:ERCC-00002	LN:1061
+@SQ	SN:ERCC-00003	LN:1023
+@SQ	SN:ERCC-00004	LN:523
+@SQ	SN:ERCC-00009	LN:984
+@SQ	SN:ERCC-00012	LN:994
+@SQ	SN:ERCC-00013	LN:808
+@SQ	SN:ERCC-00014	LN:1957
+@SQ	SN:ERCC-00016	LN:844
+@SQ	SN:ERCC-00017	LN:1136
+```
+
+I checked, I can shamelessly replace `SN:ERCC-` by `CB:SN:ERCC-`
+
+```bash
+sed 's/SN:ERCC-/CB:SN:ERCC-/g' SS2_19_037-H13-CB_chr2.sam > SS2_19_037-H13-CB_chr2_with_cbs.sam
+```
+
+![](sed_difference.png)
+
+This does leave some `.sam` unaffected:
+
+```
+@SQ	SN:chr1	LN:248956422
+@SQ	SN:chr10	LN:133797422
+@SQ	SN:chr11	LN:135086622
+@SQ	SN:chr12	LN:133275309
+@SQ	SN:chr13	LN:114364328
+@SQ	SN:chr14	LN:107043718
+@SQ	SN:chr15	LN:101991189
+@SQ	SN:chr16	LN:90338345
+@SQ	SN:chr17	LN:83257441
+@SQ	SN:chr18	LN:80373285
+@SQ	SN:chr19	LN:58617616
+@SQ	SN:chr2	LN:242193529
+@SQ	SN:chr20	LN:64444167
+@SQ	SN:chr21	LN:46709983
+@SQ	SN:chr22	LN:50818468
+@SQ	SN:chr3	LN:198295559
+@SQ	SN:chr4	LN:190214555
+@SQ	SN:chr5	LN:181538259
+@SQ	SN:chr6	LN:170805979
+@SQ	SN:chr7	LN:159345973
+@SQ	SN:chr8	LN:145138636
+@SQ	SN:chr9	LN:138394717
+@SQ	SN:chrM	LN:16569
+@SQ	SN:chrX	LN:156040895
+```
+
+- [ ] Ask user: is that OK?
+
+If it is OK, the line that needs to be added is:
+
+```bash
+# Add CB:s in the header
+sed 's/SN:ERCC-/CB:SN:ERCC-/g' SS2_19_037-H13-CB_chr2.sam > SS2_19_037-H13-CB_chr2_with_cbs.sam
+# Convert to BAM
+samtools view -S -b SS2_19_037-H13-CB_chr2_with_cbs.sam > SS2_19_037-H13-CB_chr2_with_cbs.bam
+```
+
 ## 2024-08-05
 
 ### Meeting Monday 2024-08-05 10:00
