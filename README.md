@@ -73,6 +73,57 @@ SS2_19_037-H13_chr2.bam has good EOF block.
 
 - [ ] Run use script, reproduce problem
 
+Does not work yet:
+
+```bash
+[richel@rackham1 ticket_296259]$ cat slurm-49075340.out
+[DEBUG][SamJdk] Compiling :
+         1  import java.util.*;
+         2  import java.util.stream.*;
+         3  import java.util.function.*;
+         4  import htsjdk.samtools.*;
+         5  import htsjdk.samtools.util.*;
+         6  public class SamJdkCustom173338094 extends com.github.lindenb.jvarkit.tools.samjs.SamJdk.AbstractFilter {
+         7    public SamJdkCustom173338094(final SAMFileHeader header) {
+         8    super(header);
+         9    }
+        10    @Override
+        11    public Object apply(final SAMRecord record) {
+        12     /** user's code starts here */
+        13  String c=record.getReadName(); int h=0; int s=21; record.setAttribute(CB,c.substring(h,s));return record;
+        14  /** user's code ends here */
+        15     }
+        16  }
+/tmp/jvarkit.tmp3660225531974008139/SamJdkCustom173338094.java:13: error: cannot find symbol
+String c=record.getReadName(); int h=0; int s=21; record.setAttribute(CB,c.substring(h,s));return record;
+                                                                      ^
+  symbol:   variable CB
+  location: class SamJdkCustom173338094
+1 error
+[SEVERE][SamJdk]java.lang.RuntimeException: Cannot compile
+java.lang.RuntimeException: java.lang.RuntimeException: Cannot compile
+	at com.github.lindenb.jvarkit.lang.OpenJdkCompiler$DefaultOpenJdkCompiler.compileClass(OpenJdkCompiler.java:250)
+	at com.github.lindenb.jvarkit.tools.samjs.SamJdk.doWork(SamJdk.java:584)
+	at com.github.lindenb.jvarkit.util.jcommander.Launcher.instanceMain(Launcher.java:819)
+	at com.github.lindenb.jvarkit.util.jcommander.Launcher.instanceMainWithExit(Launcher.java:982)
+	at com.github.lindenb.jvarkit.tools.samjs.SamJdk.main(SamJdk.java:809)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.github.lindenb.jvarkit.tools.jvarkit.JvarkitCentral$Command.execute(JvarkitCentral.java:260)
+	at com.github.lindenb.jvarkit.tools.jvarkit.JvarkitCentral.run(JvarkitCentral.java:716)
+	at com.github.lindenb.jvarkit.tools.jvarkit.JvarkitCentral.main(JvarkitCentral.java:727)
+Caused by: java.lang.RuntimeException: Cannot compile
+	at com.github.lindenb.jvarkit.lang.OpenJdkCompiler$DefaultOpenJdkCompiler.exec(OpenJdkCompiler.java:164)
+	at com.github.lindenb.jvarkit.lang.OpenJdkCompiler$DefaultOpenJdkCompiler.compileClass(OpenJdkCompiler.java:227)
+	... 11 more
+[INFO][Launcher]samjdk Exited with failure (-1)
+[main_samview] fail to read the header from "./SS2_19_037-H13-CB_chr2.sam".
+samtools index: "SS2_19_037-H13_chr2_bam.bam" is in a format that cannot be usefully indexed
+```
+
+Problem seems that the text `CB` disappears. Let's fix it by `"CB"` to `\"CB\"`.
 
 
 - [ ] Confirm that `samtools quickcheck` on the `SS2_19_037-H13_chr2.bam` created by the original script
