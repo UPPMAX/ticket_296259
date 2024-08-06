@@ -151,6 +151,15 @@ Works:
 [richel@rackham1 ticket_296259]$ 
 ```
 
+New problem is that the FASTA file cannot be found, I've added that in the script too.
+
+```
+[richel@rackham1 ticket_296259]$ cat log 
+11:31:38 [ERROR] Input file ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa does not exist
+[richel@rackham1 ticket_296259]$ 
+``
+
+
 - [x] [FAILS] Confirm that `samtools quickcheck` on the `SS2_19_037-H13_chr2.bam` created by the original script
   indicates a problem
 

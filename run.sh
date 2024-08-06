@@ -5,6 +5,8 @@ module load samtools
 module load vartrix
 module load java/OpenJDK_17+35
 
+# Added by Richel
+module load picard
 
 
 
@@ -22,15 +24,6 @@ samtools view -b ${bamO} chr2 > SS2_19_037-H13_chr2.bam
 
 ## fasta reference
 fastafile="/castor/project/proj/maria.d/8_EXPRESSION.D/09.0_vartrix/data-d/ref_fasta-d/00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa"
-
-if [ ! -f ${fastafile} ]
-  fastafile="GRCh38.p13.genome.fa"
-fi
-
-if [ ! -f ${fastafile} ]
-  echo "ERROR: 'fastafile' not found at ${fastafile}"
-fi
-
 cp ${fastafile} .
 samtools faidx 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa chr2 >  ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
 samtools faidx ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
@@ -43,6 +36,7 @@ LINE="./SS2_19_037-H13_chr2.bam"
 outdir1="./"
 cell="SS2_19_037-H13"
 
+# Added by Richel
 if [ -f ${tooldir}jvarkit.jar ]; then
     java -jar ${tooldir}jvarkit.jar samjdk -e 'String c=record.getReadName(); int h=0; int s=21; record.setAttribute("CB",c.substring(h,s));return record;' ${LINE}  > ${outdir1}${cell}-CB_chr2.sam
 else
@@ -60,12 +54,26 @@ samtools view -bS ./SS2_19_037-H13-CB_chr2.sam > ./SS2_19_037-H13_chr2_bam.bam
 ## and index
 samtools index SS2_19_037-H13_chr2_bam.bam
 
+# Added by Richel
+module load picard
+error_code = $(java -jar $PICARD ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam)
+if [ $error_code != 0 ]; then
+  echo "ERROR: Picard error code is ${error_code}"
+  exit $error_code
+fi
+
+echo "EXIT"
+exit 0
+
 # Run - it works!! The only thing left to do is add the tag to the bam header sth like @CB:ZXXXXX
 # reference vcf file
 vcffile="./ALK_chr.vcf"
 
 # fasta file for the reference genome used
 fastafile="./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa"
+
+
+
 
 LINE="./"	
 cell="SS2_19_037-H13"
