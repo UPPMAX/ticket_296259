@@ -125,11 +125,58 @@ samtools index: "SS2_19_037-H13_chr2_bam.bam" is in a format that cannot be usef
 
 Problem seems that the text `CB` disappears. Let's fix it by `"CB"` to `\"CB\"`.
 
+Works:
 
-- [ ] Confirm that `samtools quickcheck` on the `SS2_19_037-H13_chr2.bam` created by the original script
+```
+[richel@rackham1 ticket_296259]$ cat slurm-49075347.out
+[DEBUG][SamJdk] Compiling :
+         1  import java.util.*;
+         2  import java.util.stream.*;
+         3  import java.util.function.*;
+         4  import htsjdk.samtools.*;
+         5  import htsjdk.samtools.util.*;
+         6  public class SamJdkCustom1568608340 extends com.github.lindenb.jvarkit.tools.samjs.SamJdk.AbstractFilter {
+         7    public SamJdkCustom1568608340(final SAMFileHeader header) {
+         8    super(header);
+         9    }
+        10    @Override
+        11    public Object apply(final SAMRecord record) {
+        12     /** user's code starts here */
+        13  String c=record.getReadName(); int h=0; int s=21; record.setAttribute("CB",c.substring(h,s));return record;
+        14  /** user's code ends here */
+        15     }
+        16  }
+[richel@rackham1 ticket_296259]$ 
+```
+
+- [x] [FAILS] Confirm that `samtools quickcheck` on the `SS2_19_037-H13_chr2.bam` created by the original script
+  indicates a problem
+
+```bash
+[richel@rackham1 ticket_296259]$ samtools quickcheck SS2_19_037-H13_chr2.bam
+[richel@rackham1 ticket_296259]$ 
+```
+
+- [x] Send a feature request to samtools to detect this. Done at [https://github.com/samtools/samtools/issues/2094](https://github.com/samtools/samtools/issues/2094)
+
+`samtools` determines the type of file from the input file, not from its filename
+
+- [x] Confirm that `java -jar $PICARD ValidateSamFile --INPUT java -jar $PICARD ValidateSamFile --INPUT user_filename.bam` 
       indicates a problem
-- [ ] Confirmthat `java -jar $PICARD ValidateSamFile --INPUT java -jar $PICARD ValidateSamFile --INPUT user_filename.bam` 
-      indicates a problem
+
+```bash
+[richel@rackham1 ticket_296259]$ java -jar $PICARD ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam 
+Aug 06, 2024 1:14:05 PM com.intel.gkl.NativeLibraryLoader load
+INFO: Loading libgkl_compression.so from jar:file:/sw/bioinfo/picard/3.1.1/rackham/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+[Tue Aug 06 13:14:05 CEST 2024] ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam --MODE VERBOSE --MAX_OUTPUT 100 --IGNORE_WARNINGS false --VALIDATE_INDEX true --INDEX_VALIDATION_STRINGENCY EXHAUSTIVE --IS_BISULFITE_SEQUENCED false --MAX_OPEN_TEMP_FILES 8000 --SKIP_MATE_VALIDATION false --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 5 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false
+[Tue Aug 06 13:14:05 CEST 2024] Executing as richel@rackham1.uppmax.uu.se on Linux 3.10.0-1160.119.1.el7.x86_64 amd64; OpenJDK 64-Bit Server VM 17+35-2724; Deflater: Intel; Inflater: Intel; Provider GCS is available; Picard version: Version:3.1.1
+WARNING	2024-08-06 13:14:05	ValidateSamFile	NM validation cannot be performed without the reference. All other validations will still occur.
+ERROR::MISSING_READ_GROUP:Read groups is empty
+WARNING::RECORD_MISSING_READ_GROUP:Read name Run0484_ACDWKAANXX_L4_R1_T2103_C1510673, A record is missing a read group
+WARNING::MISSING_TAG_NM:Record 1, Read name Run0484_ACDWKAANXX_L4_R1_T2103_C1510673, NM tag (nucleotide differences) is missing
+WARNING::RECORD_MISSING_READ_GROUP:Read name Run0484_ACDWKAANXX_L4_R1_T1209_C1324596, A record is missing a read group
+[...]
+```
 
 ## 2024-08-05
 
