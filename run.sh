@@ -9,29 +9,34 @@ module load java/OpenJDK_17+35
 module load picard
 
 
+# Added by Richel
+if [ 1 == 2]; then
 
-# Commented out by Richel
-# <<'_SKIP_'
+    <<'_SKIP_'
 
-# Original bam
-cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam ./H13/SS2_19_037-H13.genome.sorted-original.bam
-cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam.bai .H13/SS2_19_037-H13.genome.sorted-original.bam
-bamO="SS2_19_037-H13.genome.sorted-original.bam"
-bai="SS2_19_037-H13.genome.sorted-original.bam.bai"
+    # Original bam
+    cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam ./H13/SS2_19_037-H13.genome.sorted-original.bam
+    cp ../8_EXPRESSION.D/output.d/01_out/05.0_rsem/SS2_19_037/H13/SS2_19_037-H13.genome.sorted.bam.bai .H13/SS2_19_037-H13.genome.sorted-original.bam
+    bamO="SS2_19_037-H13.genome.sorted-original.bam"
+    bai="SS2_19_037-H13.genome.sorted-original.bam.bai"
 
-# Split to chr2
-## aligment
-samtools view -b ${bamO} chr2 > SS2_19_037-H13_chr2.bam
+    # Split to chr2
+    ## aligment
+    samtools view -b ${bamO} chr2 > SS2_19_037-H13_chr2.bam
 
-## fasta reference
-fastafile="/castor/project/proj/maria.d/8_EXPRESSION.D/09.0_vartrix/data-d/ref_fasta-d/00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa"
-cp ${fastafile} .
-samtools faidx 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa chr2 >  ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
-samtools faidx ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
-rm 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa.fai
 
-# Commented out by Richel
-# _SKIP_
+
+    ## fasta reference
+    fastafile="/castor/project/proj/maria.d/8_EXPRESSION.D/09.0_vartrix/data-d/ref_fasta-d/00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa"
+    cp ${fastafile} .
+    samtools faidx 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa chr2 >  ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
+    samtools faidx ./00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
+    rm 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92.fa.fai
+
+    # Commented out by Richel
+    _SKIP_
+
+fi
 
 # Add missing tag
 tooldir="/home/mararc/bin/jvarkit/dist/"
@@ -71,6 +76,8 @@ echo "----------------------------------------------"
 
 # Fix
 mv SS2_19_037-H13_chr2.bam SS2_19_037-H13_chr2.sam
+   SS2_19_037-H13_chr2.bam
+
 samtools view -S -b SS2_19_037-H13_chr2.sam > SS2_19_037-H13_chr2.bam
 
 error_code=$(java -jar ${PICARD} ValidateSamFile --INPUT SS2_19_037-H13_chr2.bam --MAX_OUTPUT 5)

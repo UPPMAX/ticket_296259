@@ -8,3 +8,6 @@ rm SS2_19_037-H13_chr2_bam.bam
 rm GRCh38.p13.genome.fa.gz
 rm log
 rm *.out
+rm 00.0_chrom_seq_removed_GRCh38.primary_assembly.genome-nochrY_ERCC92-chr2.fa
+
+# MUST STAY: SS2_19_037-H13_chr2.bam
